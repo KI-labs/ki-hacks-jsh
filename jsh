@@ -94,7 +94,7 @@ load() {
 
   "zsh")
     echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
-    echo 'export PROMPT="$bg[green]% $fg[black]% %n@jshrc ▶ %c ㇇%{$reset_color%}"' >>${JSHRC}
+    echo 'export PROMPT="$bg[green]% $fg[black]% %n@jshrc ▶ %c%{$reset_color%} ㇇"' >>${JSHRC}
     sleep 2
     JSHRC=$JSHRC USER=$USER zsh -is <<<'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
@@ -103,7 +103,7 @@ load() {
 
   "bash")
     echo -e "${GREEN}✔${NC} Setting up ${GREEN}bash${NC} shell"
-    echo 'export PS1="\e[0;42m\u@jsh ▶ \W ㇇\e[m"' >>${JSHRC}
+    echo 'export PS1="\e[0;42m\u@jsh ▶ \W\e[m ㇇"' >>${JSHRC}
     sleep 2
     JSHRC=$JSHRC USER=$USER bash -i <<<'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
