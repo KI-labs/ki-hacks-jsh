@@ -1,2 +1,1 @@
-export SHELL="zsh"
-export JSH="TRUE"
+export JSH_SHELL="zsh"

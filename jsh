@@ -53,10 +53,9 @@ load () {
   # add rc file
   JSHRC="${WORKDIR}/registry/${USER}.jshrc"
 
-  # allow configurable shell
-
-  SHELL="bash"
-  case $SHELL in
+  # identify SHELL based on *.jshrc
+  eval $(awk '/JSH_SHELL/{print $2}' ${JSHRC})
+  case $JSH_SHELL in
 
     "zsh")
       echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
