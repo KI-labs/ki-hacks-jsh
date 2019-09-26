@@ -1,7 +1,7 @@
 ```
     _     _
    (_)___| |__
-   | / __| '_ \\
+   | / __| '_ \
    | \__ \ | | |
   _/ |___/_| |_|
  |__/
@@ -15,5 +15,5 @@ A solution to the ever-present problem of helping a colleague with a (relatively
 Loading a specific user ENV is done as follows:
 
 ```shell script
-./jsh user=josh
+source jsh user=josh
 ```

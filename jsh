@@ -38,5 +38,9 @@ echo """
 CONTEXT=${CONTEXT:-${PWD}}
 
 # add rc file
+echo "source ${CONTEXT}/registry/${USER}.jshrc"
 source ${CONTEXT}/registry/${USER}.jshrc
 echo -e "${GREEN}✔${NC} Successfully loaded ${GREEN}${USER}${NC}"
+
+## remove jsh file
+#exec "$0"
