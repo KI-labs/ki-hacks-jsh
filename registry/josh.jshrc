@@ -21,4 +21,4 @@ alias knl="kaos notebook list"
 alias my_ip="dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'\"' '{ print $2}'"
 
 # simple jupyter notebook
-alias jupyter="docker run -p 8888:8888 jupyter/minimal-notebook"
+alias notebook="docker run -p 8888:8888 jupyter/minimal-notebook"
