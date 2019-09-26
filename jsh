@@ -35,10 +35,10 @@ Commands:
 }
 
 # upload command
-upload () {
+upload() {
 
   help_upload() {
-  echo -e "Usage: jsh ${GREEN}upload${NC} [PATH]"
+    echo -e "Usage: jsh ${GREEN}upload${NC} [PATH]"
     exit 1
   }
 
@@ -49,17 +49,17 @@ upload () {
 }
 
 # list command
-list () {
+list() {
   aws s3 ls ${REGISTRY}
   # TODO -> clean up
-#  (printf ${GREEN}"PROFILES${NC}\n"; ls -1 "$WORKDIR"/registry | sed -e 's/\.jshrc$//') | column -t
+  #  (printf ${GREEN}"PROFILES${NC}\n"; ls -1 "$WORKDIR"/registry | sed -e 's/\.jshrc$//') | column -t
 }
 
 # view command
-view () {
+view() {
 
   help_view() {
-  echo -e "Usage: jsh ${GREEN}view${NC} [PATH]"
+    echo -e "Usage: jsh ${GREEN}view${NC} [PATH]"
     exit 1
   }
 
@@ -70,10 +70,10 @@ view () {
 }
 
 # load command
-load () {
+load() {
 
   help_load() {
-  echo -e "Usage: jsh ${GREEN}load${NC} [USER]"
+    echo -e "Usage: jsh ${GREEN}load${NC} [USER]"
     exit 1
   }
 
@@ -92,44 +92,44 @@ load () {
   eval $(awk '/JSH_SHELL/{print $2}' ${JSHRC})
   case $JSH_SHELL in
 
-    "zsh")
-      echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
-      echo 'export PROMPT="$bg[green]% $fg[black]% %n@jshrc ▶ %c ㇇%{$reset_color%}"' >> ${JSHRC}
-      sleep 2
-      JSHRC=$JSHRC USER=$USER zsh -is <<< 'source ${JSHRC}; \
+  "zsh")
+    echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
+    echo 'export PROMPT="$bg[green]% $fg[black]% %n@jshrc ▶ %c ㇇%{$reset_color%}"' >>${JSHRC}
+    sleep 2
+    JSHRC=$JSHRC USER=$USER zsh -is <<<'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
-      ;;
+    ;;
 
-    "bash")
-      echo -e "${GREEN}✔${NC} Setting up ${GREEN}bash${NC} shell"
-      echo 'export PS1="\e[0;42m\u@jsh ▶ \W ㇇\e[m"' >> ${JSHRC}
-      sleep 2
-      JSHRC=$JSHRC USER=$USER bash -i <<< 'source ${JSHRC}; \
+  "bash")
+    echo -e "${GREEN}✔${NC} Setting up ${GREEN}bash${NC} shell"
+    echo 'export PS1="\e[0;42m\u@jsh ▶ \W ㇇\e[m"' >>${JSHRC}
+    sleep 2
+    JSHRC=$JSHRC USER=$USER bash -i <<<'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
-      ;;
-    *)
-      echo -e "${RED}missing JSH_SHELL in *.jshrc!"
-      ;;
+    ;;
+  *)
+    echo -e "${RED}missing JSH_SHELL in *.jshrc!"
+    ;;
   esac
 }
 
 # "main"
 case "$1" in
-  upload)
-    upload "$2"
-    ;;
-  list)
-    list
-    ;;
-  view)
-    view "$2"
-    ;;
-  load)
-    load "$2"
-    ;;
-  *)
-    help
-    ;;
+upload)
+  upload "$2"
+  ;;
+list)
+  list
+  ;;
+view)
+  view "$2"
+  ;;
+load)
+  load "$2"
+  ;;
+*)
+  help
+  ;;
 esac
