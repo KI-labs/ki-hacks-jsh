@@ -21,6 +21,7 @@ WORKDIR=$2
 
 # add rc file
 JSHRC="${WORKDIR}/registry/${USER}.jshrc"
-echo -e "Loading → ${BLUE}${JSHRC}${NC}"
-source ${WORKDIR}/registry/${USER}.jshrc
-echo -e "${GREEN}✔${NC} Successfully loaded ${GREEN}${USER}${NC}"
+# allow configurable shell
+bash -i <<< 'source ${WORKDIR}/registry/${USER}.jshrc; \
+clear; echo ${GREEN}✔${NC} Successfully loaded ${GREEN}${USER}${NC}; \
+exec </dev/tty;'
