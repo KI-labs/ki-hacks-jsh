@@ -17,3 +17,16 @@ Loading a specific user ENV is done as follows:
 ```shell script
 source jsh user=josh
 ```
+
+# Installation
+
+```bash
+brew install ki-labs/jsh/jsh
+```
+
+Or 
+
+```bash
+brew tap KI-labs/jsh
+brew install jsh
+```
