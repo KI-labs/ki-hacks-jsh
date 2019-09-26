@@ -95,15 +95,17 @@ load () {
     "zsh")
       echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
       sleep 2
-      zsh -is <<< 'source ${WORKDIR}/registry/${USER}.jshrc; \
+
+      zsh -is <<< 'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
       ;;
 
     "bash")
       echo -e "${GREEN}✔${NC} Setting up ${GREEN}bash${NC} shell"
+      echo 'export PS1="\e[0;31m\u@jsh ▶ \W ㇇\e[m"\n' >> ${JSHRC}
       sleep 2
-      bash -i <<< 'source ${WORKDIR}/registry/${USER}.jshrc; \
+      bash -i <<< 'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
       ;;
