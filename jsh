@@ -33,7 +33,7 @@ Commands:
 
 case "$1" in
   view|v)
-    "$WORKDIR/commands/view" "$2" "$WORKDIR"
+    "$WORKDIR/commands/view" "$WORKDIR"
     ;;
   load|l)
     "$WORKDIR/commands/load" "$2" "$WORKDIR"

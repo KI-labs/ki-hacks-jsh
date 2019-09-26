@@ -12,7 +12,5 @@ echo -e "Usage: jsh ${GREEN}unload${NC}"
   exit 1
 }
 
-[ -n "$1" ] && help_unload
-
 # revert to original terminal
-$0
+${SHELL}
