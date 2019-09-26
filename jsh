@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# color bash output
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 # define arguments
 for i in "$@"
 do
@@ -31,8 +37,6 @@ echo """
 # define default variables
 CONTEXT=${CONTEXT:-${PWD}}
 
-# loading user
-echo "======================"
-echo "| Loading User $USER |"
-echo "======================"
+# add rc file
 source ${CONTEXT}/registry/${USER}.jshrc
+echo -e "${GREEN}✔${NC} Successfully loaded ${GREEN}${USER}${NC}"
