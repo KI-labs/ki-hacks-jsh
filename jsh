@@ -9,6 +9,10 @@ case ${i} in
     USER="${i#*=}"
     shift # past argument=value
     ;;
+    -c=*|--context=*)
+    CONTEXT="${i#*=}"
+    shift # past argument=value
+    ;;
     *)
           # unknown option
     ;;
@@ -24,8 +28,11 @@ echo """
  |__/
 """
 
+# define default variables
+CONTEXT=${CONTEXT:-${PWD}}
+
 # loading user
 echo "======================"
 echo "| Loading User $USER |"
 echo "======================"
-source ./registry/$(USER).jshrc
+source ${CONTEXT}/registry/${USER}.jshrc
