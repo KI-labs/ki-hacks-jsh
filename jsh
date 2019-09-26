@@ -10,7 +10,7 @@ NC='\033[0m' # No Color
 # required path
 export WORKDIR=$(cd $(dirname $0) && pwd)
 
-# help
+# help command
 help() {
   echo -e " ${GREEN}
     _     _
@@ -31,15 +31,61 @@ Commands:
   exit 1
 }
 
+# view command
+view () {
+  (printf ${GREEN}"PROFILES${NC}\n"; ls -1 "$WORKDIR"/registry | sed -e 's/\.jshrc$//') | column -t
+}
+
+# load command
+load () {
+
+  help_load() {
+  echo -e "Usage: jsh ${GREEN}load${NC} [USER]"
+    exit 1
+  }
+
+  [ -z "$1" ] && help_load
+
+  # define default variables
+  USER=$1
+  WORKDIR=$2
+
+  # add rc file
+  JSHRC="${WORKDIR}/registry/${USER}.jshrc"
+
+  # allow configurable shell
+
+  SHELL="bash"
+  case $SHELL in
+
+    "zsh")
+      echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
+      sleep 0.5
+      zsh -is <<< 'source ${WORKDIR}/registry/${USER}.jshrc; \
+      clear; echo ✔ Successfully loaded ${USER}; \
+      exec </dev/tty;'
+      ;;
+
+    "bash")
+      echo -e "${GREEN}✔${NC} Setting up ${GREEN}bash${NC} shell"
+      sleep 0.5
+      bash -i <<< 'source ${WORKDIR}/registry/${USER}.jshrc; \
+      clear; echo ✔ Successfully loaded ${USER}; \
+      exec </dev/tty;'
+      ;;
+    *)
+      echo -e "${RED}missing SHELL in *.jshrc!"
+      ;;
+  esac
+}
+
+# "main"
 case "$1" in
   view|v)
-    "$WORKDIR/commands/view" "$WORKDIR"
+    view
     ;;
   load|l)
-    "$WORKDIR/commands/load" "$2" "$WORKDIR"
-    ;;
-  unload|u)
-    "$WORKDIR/commands/unload"
+    load "$2" "$WORKDIR"
     ;;
   *)
     help
