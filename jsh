@@ -65,7 +65,7 @@ view () {
 
   [ -z "$1" ] && help_view
   echo -e "... Fetching ${BLUE}$1${NC}\n"
-  aws s3 cp --quiet ${REGISTRY}${1}.jshrc /dev/stdout
+  aws s3 cp ${REGISTRY}${1} /dev/stdout
   echo -e "\n\n${GREEN}✔${NC} Successfully ${GREEN}fetched${NC} ${BLUE}$1"
 }
 
@@ -83,7 +83,7 @@ load () {
   USER=$1
   JSHRC=/tmp/jsh/current_profile.jshrc
   echo -e "... Fetching ${BLUE}$1${NC}"
-  aws s3 cp --quiet ${REGISTRY}${USER}.jshrc ${JSHRC}
+  aws s3 cp --quiet ${REGISTRY}${USER} ${JSHRC}
   echo -e "${GREEN}✔${NC} Successfully ${GREEN}fetched${NC} ${BLUE}$1"
 
   # TODO -> indicate inside of shell
@@ -96,16 +96,17 @@ load () {
       echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
       sleep 2
 
-      zsh -is <<< 'source ${JSHRC}; \
+      JSHRC=$JSHRC USER=$USER zsh -is <<< 'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
       ;;
 
     "bash")
       echo -e "${GREEN}✔${NC} Setting up ${GREEN}bash${NC} shell"
-      echo 'export PS1="\e[0;31m\u@jsh ▶ \W ㇇\e[m"\n' >> ${JSHRC}
+      echo 'export PS1="\e[0;31m\u@jsh ▶ \W ㇇\e[m"' >> ${JSHRC}
+      cat ${JSHRC}
       sleep 2
-      bash -i <<< 'source ${JSHRC}; \
+      JSHRC=$JSHRC USER=$USER bash -i <<< 'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
       ;;
