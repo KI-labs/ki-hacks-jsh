@@ -9,7 +9,7 @@ action "Filters for Master branch" {
 }
 
 action " Github Create Release" {
-  uses = "frankjuniorr/github-create-release-action@master
+  uses = "frankjuniorr/github-create-release-action@master"
   needs = ["Filters for Master branch"]
   secrets = ["GITHUB_TOKEN"]
 }
