@@ -1,1 +1,24 @@
 export JSH_SHELL="zsh"
+
+# kubernetes autocomplete
+alias k="kubectl"
+if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
+
+# pachyderm commands
+alias p="pachctl"
+alias plp="pachctl list pipeline"
+alias plj="pachctl list job --no-pager"
+alias plr="pachctl list repo"
+alias plc="pachctl list commit"
+
+# kaos commands
+alias ktl="kaos train list"
+alias kti="kaos train info"
+alias ksl="kaos serve list"
+alias knl="kaos notebook list"
+
+# determine IP
+alias my_ip="dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'\"' '{ print $2}'"
+
+# simple jupyter notebook
+alias jupyter="docker run -p 8888:8888 jupyter/minimal-notebook"
