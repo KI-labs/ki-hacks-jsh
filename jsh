@@ -50,9 +50,10 @@ upload() {
 
 # list command
 list() {
-  aws s3 ls ${REGISTRY}
-  # TODO -> clean up
-  #  (printf ${GREEN}"PROFILES${NC}\n"; ls -1 "$WORKDIR"/registry | sed -e 's/\.jshrc$//') | column -t
+  (
+    printf ${GREEN}"PROFILES${NC}\n"
+    aws s3 ls ${REGISTRY} | awk '{print $4}'
+  ) | column -t
 }
 
 # view command
@@ -86,8 +87,6 @@ load() {
   aws s3 cp --quiet ${REGISTRY}${USER} ${JSHRC}
   echo -e "${GREEN}✔${NC} Successfully ${GREEN}fetched${NC} ${BLUE}$1"
 
-  # TODO -> indicate inside of shell
-
   # identify SHELL based on *.jshrc
   eval $(awk '/JSH_SHELL/{print $2}' ${JSHRC})
   case $JSH_SHELL in
@@ -95,7 +94,7 @@ load() {
   "zsh")
     echo -e "${BLUE}✔${NC} Setting up ${BLUE}zsh${NC} shell"
     echo 'export PROMPT="$bg[green]% $fg[black]% %n@jshrc ▶ %c%{$reset_color%} ㇇"' >>${JSHRC}
-    sleep 2
+    sleep 1
     JSHRC=$JSHRC USER=$USER zsh -is <<<'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
@@ -104,7 +103,7 @@ load() {
   "bash")
     echo -e "${GREEN}✔${NC} Setting up ${GREEN}bash${NC} shell"
     echo 'export PS1="\e[0;42m\u@jsh ▶ \W\e[m ㇇"' >>${JSHRC}
-    sleep 2
+    sleep 1
     JSHRC=$JSHRC USER=$USER bash -i <<<'source ${JSHRC}; \
       clear; echo ✔ Successfully loaded ${USER}; \
       exec </dev/tty;'
