@@ -26,7 +26,7 @@ Usage: jsh [command]
 Commands:
   ${GREEN}view${NC}    view available profiles
   ${GREEN}load${NC}    load desired profiles
-  ${GREEN}unload${NC}  revert loaded profile
+
 "
   exit 1
 }
