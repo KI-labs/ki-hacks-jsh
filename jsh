@@ -73,7 +73,7 @@ load () {
       exec </dev/tty;'
       ;;
     *)
-      echo -e "${RED}missing SHELL in *.jshrc!"
+      echo -e "${RED}missing JSH_SHELL in *.jshrc!"
       ;;
   esac
 }
