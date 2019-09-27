@@ -43,9 +43,9 @@ upload() {
   }
 
   [ -z "$1" ] && help_upload
-  echo -e "... Uploading ${BLUE}$1"
+  echo -e "... Uploading ${BLUE}$1${NC}"
   aws s3 cp "$1" ${REGISTRY} --quiet
-  echo -e "${GREEN}✔${NC} Successfully ${GREEN}uploaded${NC} ${BLUE}$1"
+  echo -e "${GREEN}✔${NC} Successfully ${GREEN}uploaded${NC} ${BLUE}$1${NC}"
 }
 
 # list command
@@ -67,7 +67,7 @@ view() {
   [ -z "$1" ] && help_view
   echo -e "... Fetching ${BLUE}$1${NC}\n"
   aws s3 cp ${REGISTRY}${1} /dev/stdout
-  echo -e "\n\n${GREEN}✔${NC} Successfully ${GREEN}fetched${NC} ${BLUE}$1"
+  echo -e "\n\n${GREEN}✔${NC} Successfully ${GREEN}fetched${NC} ${BLUE}$1${NC}"
 }
 
 # load command
@@ -85,7 +85,7 @@ load() {
   JSHRC=/tmp/jsh/current_profile.jshrc
   echo -e "... Fetching ${BLUE}$1${NC}"
   aws s3 cp --quiet ${REGISTRY}${USER} ${JSHRC}
-  echo -e "${GREEN}✔${NC} Successfully ${GREEN}fetched${NC} ${BLUE}$1"
+  echo -e "${GREEN}✔${NC} Successfully ${GREEN}fetched${NC} ${BLUE}$1${NC}"
 
   # identify SHELL based on *.jshrc
   eval $(awk '/JSH_SHELL/{print $2}' ${JSHRC})
@@ -109,7 +109,7 @@ load() {
       exec </dev/tty;'
     ;;
   *)
-    echo -e "${RED}missing JSH_SHELL in *.jshrc!"
+    echo -e "${RED}missing JSH_SHELL in *.jshrc!${NC}"
     ;;
   esac
 }
