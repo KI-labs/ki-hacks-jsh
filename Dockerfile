@@ -9,7 +9,7 @@ ENV LANG C.UTF-8
 ADD . /app/
 
 # install basic requirements
-RUN apk add --no-cache curl bash nano git zsh
+RUN apk add --no-cache curl bash nano git zsh util-linux
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" > /dev/null
 
 # install aws CLI
